@@ -24,6 +24,7 @@ def chessboardcorners(gray,objPoints,imgPoints,fname):
 	return (objPoints,imgPoints)
 def calibrate(input_dir):
 	print('calibrating..')
+	print('--'*10)
 	images=glob.glob(input_dir+'calibration*.jpg')
 
 	objPoints=[]#3d points

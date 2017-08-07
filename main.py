@@ -1,31 +1,22 @@
-import scripts.camera_calibration as cc
-import scripts.transform as transform
-from scripts.helper_funcs import write_text
-import scipy.misc
-import matplotlib.pyplot as plt
-import numpy as np
-import matplotlib.image as mpimg
+from scripts.process import *
+p=process()
 
-height=1000
-width=1000
-output = np.zeros((height,width,3))
+#image processing pipeline
+# from os import listdir
+# from os.path import isfile, join
+# mypath='./test_images'
+# onlyfiles = [f for f in listdir(mypath) if isfile(join(mypath, f))]
+# for image_name in onlyfiles: 	
+# 	print('\n')
+# 	print('--'*10)
+# 	print(image_name)
+# 	print('--'*10)
+# 	test_images_dir='./test_images/'
+# 	#distorted images
+# 	image1=mpimg.imread(test_images_dir+image_name)
+# 	output=p.process_image(image1)
+# 	p.save_image(image_name,output)
 
-#calibration
-calib_images_dir='./camera_cal/'
-mtx,dist=cc.calibrate(calib_images_dir)
-test_images_dir='./test_images/'
-image_name='test1.jpg'
-#distorted images
-image1=img=mpimg.imread(test_images_dir+image_name)
-output[0:height/2,0:width/2]=scipy.misc.imresize(image1,(height/2,width/2))
-#undistorted images
-undist_img=cc.undistort(image1,mtx,dist)
-output[0:height/2,width/2:width]=scipy.misc.imresize(undist_img,(height/2,width/2))
-#thresholding
-binary=transform.threshold(undist_img)
-output[height/2:height,0:width/2]=scipy.misc.imresize(binary,(height/2,width/2))
-
-#save output image
-output_path='./output_images/'+image_name
-scipy.misc.imsave(output_path, output)
-write_text(output_path,height,width)
+#video processing pipeline
+video_name='harder_challenge_video.mp4'
+p.process_video(video_name)
