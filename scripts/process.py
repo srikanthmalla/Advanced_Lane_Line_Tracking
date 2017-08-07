@@ -28,17 +28,21 @@ class process:
 		#undistorted images
 		undist_img=cc.undistort(image1,self.mtx,self.dist)
 		output[0:int(self.height/2),int(self.width/3):2*int(self.width/3)]=scipy.misc.imresize(undist_img,(int(self.height/2),int(self.width/3)))
+		# self.save_image('2_undistorted.jpg',undist_img)
 
 		#thresholding
 		binary=transform.threshold(undist_img)
 		output[0:int(self.height/2),2*int(self.width/3):self.width]=scipy.misc.imresize(binary,(int(self.height/2),int(self.width/3)))
+		# self.save_image('3_binary.jpg',binary)
 
 		#warping
 		img_size=(binary.shape[1],image1.shape[0])
 		binary_warped=transform.warp(binary,img_size)
+		# self.save_image('4_binary_warped.jpg',binary_warped)
 
 		img_size=(undist_img.shape[1],undist_img.shape[0])
 		color_warped=transform.warp(undist_img,img_size)
+		# self.save_image('5_color_warped.jpg',color_warped)
 
 		output[int(self.height/2):self.height,0:int(self.width/3)]=scipy.misc.imresize(binary_warped,(int(self.height/2),int(self.width/3)))
 
@@ -46,10 +50,12 @@ class process:
 		points=detect_lanes(binary_warped[:,:,1])
 		lane=draw(color_warped,points)
 		output[int(self.height/2):self.height,int(self.width/3):2*int(self.width/3)]=scipy.misc.imresize(lane,(int(self.height/2),int(self.width/3)))
+		# self.save_image('6_lane.jpg',lane)
 
 		#Final output with detected lanes
 		final=transform.unwarp(lane,img_size)
 		dst=cv2.addWeighted( undist_img, 0.9, final, 0.4, 0.0);
+		# self.save_image('7_final.jpg',dst)
 
 		output[int(self.height/2):self.height,2*int(self.width/3):self.width]=scipy.misc.imresize(dst,(int(self.height/2),int(self.width/3)))
 
