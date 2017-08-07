@@ -118,6 +118,12 @@ I implemented this step in lines # through # in my code in `yet_another_file.py`
 
 Here's a [link to my video result](./project_video.mp4)
 
+For better HD video:
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=qCQktcZ3k5A
+" target="_blank"><img src="https://www.youtube.com/watch?v=qCQktcZ3k5A/0.jpg" 
+alt="IMAGE ALT TEXT HERE" width="720" height=AUTO border="10" /></a>
+
 ---
 
 ### Discussion
