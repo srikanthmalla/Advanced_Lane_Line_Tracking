@@ -17,17 +17,14 @@ The goals / steps of this project are the following:
 * Warp the detected lane boundaries back onto the original image.
 * Output visual display of the lane boundaries and numerical estimation of lane curvature and vehicle position.
 
-[//]: # (Image References)
+Pipeline:
+![alt text](output_images/output_images/test1.jpg)
 
-[image1]: ./examples/undistort_output.png "Undistorted"
-[image2]: ./test_images/test1.jpg "Road Transformed"
-[image3]: ./examples/binary_combo_example.jpg "Binary Example"
-[image4]: ./examples/warped_straight_lines.jpg "Warp Example"
-[image5]: ./examples/color_fit_lines.jpg "Fit Visual"
-[image6]: ./examples/example_output.jpg "Output"
-[video1]: ./project_video.mp4 "Video"
+For explation with images, here I take test1 image as example, raw Image:
+![alt text](test_images/test1.jpg)
 
-## [Rubric](https://review.udacity.com/#!/rubrics/571/view) Points
+
+![alt text](output_images/7_final.jpg)
 
 ### Here I will consider the rubric points individually and describe how I addressed each point in my implementation.  
 
@@ -40,8 +37,13 @@ The goals / steps of this project are the following:
 You're reading it!
 
 ### Camera Calibration
+Undistortion after calibration: (left distorted, right undistorted)
+![alt text](output_images/calibration2.jpg)
 
 #### 1. Briefly state how you computed the camera matrix and distortion coefficients. Provide an example of a distortion corrected calibration image.
+With the same camera parmeters, test1 is undistorted, resulted as:
+![alt text](output_images/2_undistorted.jpg)
+
 
 The code for this step is contained in the first code cell of the IPython notebook located in "./examples/example.ipynb" (or in lines # through # of the file called `some_file.py`).  
 
@@ -62,7 +64,7 @@ To demonstrate this step, I will describe how I apply the distortion correction 
 
 I used a combination of color and gradient thresholds to generate a binary image (thresholding steps at lines # through # in `another_file.py`).  Here's an example of my output for this step.  (note: this is not actually from one of the test images)
 
-![alt text][image3]
+![alt text](output_images/3_binary.jpg)
 
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
@@ -81,6 +83,9 @@ dst = np.float32(
     [(img_size[0] * 3 / 4), 0]])
 ```
 
+![alt text](output_images/4_binary_warped.jpg)
+![alt text](output_images/5_color_warped.jpg)
+
 This resulted in the following source and destination points:
 
 | Source        | Destination   | 
@@ -98,7 +103,7 @@ I verified that my perspective transform was working as expected by drawing the 
 
 Then I did some other stuff and fit my lane lines with a 2nd order polynomial kinda like this:
 
-![alt text][image5]
+![alt text](/output_images/6_lane.jpg)
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
@@ -108,17 +113,13 @@ I did this in lines # through # in my code in `my_other_file.py`
 
 I implemented this step in lines # through # in my code in `yet_another_file.py` in the function `map_lane()`.  Here is an example of my result on a test image:
 
-![alt text][image6]
 
 ---
 
 ### Pipeline (video)
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
-
-Here's a [link to my video result](./project_video.mp4)
-
-For better HD video:
+Here is the video link:
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=qCQktcZ3k5A
 " target="_blank"><img src="https://www.youtube.com/watch?v=qCQktcZ3k5A/0.jpg" 
