@@ -116,4 +116,4 @@ alt="Full Video of Lane Tracking" width="720" height=AUTO border="10" /></a>
 ### Discussion
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
-Eventhough the we could add polynomial and better thresholding (for binary conversion). The masking is not adaptive like when a car comes comes between, lane size changes, when there is big turning. May be deep Learning approoach could be adaptive.
+Eventhough the we could add polynomial and better thresholding (for binary conversion). The masking is not adaptive like when a car comes comes between, lane size changes, when there is big turning. May be deep Learning (segmentation) approach could be adaptive.
