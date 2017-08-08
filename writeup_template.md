@@ -90,8 +90,15 @@ I did this in lines 99 through 111 in my code in function called `detect_lines` 
 		right_curverad = ((1 + (2*right_fit_cr[0]*y_eval*ym_per_pix + right_fit_cr[1])**2)**1.5) / np.absolute(2*right_fit_cr[0])
 		# Now our radius of curvature is in meters
 		print(left_curverad, 'm', right_curverad, 'm')
+
 ```
-This is printed on terminal
+and offset is calculated as:
+```
+offset=(leftx[-1]+rightx[-1])/2-640
+offset=offset*xm_per_pix
+```
+These are printed on the video, please check the saved video at:
+https://github.com/srikanthmalla/Advanced_Lane_Line_Tracking/blob/master/output_videos/project_video.mp4
 
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
@@ -106,6 +113,12 @@ I implemented this step in function called `unwarp()` in `scrips/transform.py`. 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
 `scripts/process.py` has function called `process_video()` to process the video using the same function used for images
 Here is the video link:
+
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=C5wa6m0RdQ4
+" target="_blank"><img src="http://img.youtube.com/vi/C5wa6m0RdQ4/maxresdefault.jpg" 
+alt="Full Video of Lane Tracking" width="720" height=AUTO border="10" /></a>
+
+with all steps combined in one video:
 
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=qCQktcZ3k5A
 " target="_blank"><img src="http://img.youtube.com/vi/qCQktcZ3k5A/maxresdefault.jpg" 
