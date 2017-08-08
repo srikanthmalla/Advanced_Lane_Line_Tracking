@@ -136,3 +136,5 @@ I overcame this, by good warping.
 
 When Lighting is different the thresholding range needs to be different, but this might cause extra noise by increasing the thresholding range. For example, to overcome this problem shown in below image which has double line detected on left, to get single peak I adjusted window size while doing convolution and also adjusted the threshold range.
 ![alt text](output_images/problem2.png)
+
+May be deep learning approach (data driven) could adapt to these changes instead of hand tuning parameters.
