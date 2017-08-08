@@ -91,6 +91,8 @@ I did this in lines 99 through 111 in my code in function called `detect_lines` 
 		# Now our radius of curvature is in meters
 		print(left_curverad, 'm', right_curverad, 'm')
 ```
+This is printed on terminal
+
 #### 6. Provide an example image of your result plotted back down onto the road such that the lane area is identified clearly.
 
 I implemented this step in function called `unwarp()` in `scrips/transform.py`.  Then it is added to original image in `scripts/process.py` in function `process_image` at line 57. Here is an example of my result on a test image:
@@ -102,7 +104,9 @@ I implemented this step in function called `unwarp()` in `scrips/transform.py`. 
 ### Pipeline (video)
 
 #### 1. Provide a link to your final video output.  Your pipeline should perform reasonably well on the entire project video (wobbly lines are ok but no catastrophic failures that would cause the car to drive off the road!).
+`scripts/process.py` has function called `process_video()` to process the video using the same function used for images
 Here is the video link:
+
 <a href="http://www.youtube.com/watch?feature=player_embedded&v=qCQktcZ3k5A
 " target="_blank"><img src="http://img.youtube.com/vi/qCQktcZ3k5A/maxresdefault.jpg" 
 alt="Full Video of Lane Tracking" width="720" height=AUTO border="10" /></a>
@@ -112,4 +116,4 @@ alt="Full Video of Lane Tracking" width="720" height=AUTO border="10" /></a>
 ### Discussion
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
-Eventhough the we could add polynomial and better thresholding (for binary conversion). The masking is not adaptive like when a car comes comes between, lane size changes, when there is big turning.
+Eventhough the we could add polynomial and better thresholding (for binary conversion). The masking is not adaptive like when a car comes comes between, lane size changes, when there is big turning. May be deep Learning approoach could be adaptive.
