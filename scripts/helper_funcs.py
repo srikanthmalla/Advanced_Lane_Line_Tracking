@@ -5,22 +5,32 @@ import numpy as np
 import cv2
 import matplotlib.pyplot as plt
 
-def write_text(img_path,height,width):
-	img = Image.open(img_path)
+def write_text(img,height,width,curvature,offset, combined):
+	# img = Image.open(img_path)
+	img=Image.fromarray(img) 
 	draw = ImageDraw.Draw(img)
 	# font = ImageFont.truetype(<font-file>, <font-size>)
-	font = ImageFont.truetype("arial.ttf", 20)
-	# draw.text((x, y),"Sample Text",(r,g,b))
-	draw.text((20,0),"Distorted Image",(255,255,255),font=font)
-	draw.text((width/3+20,0),"Undistorted Image",(255,255,255),font=font)
-	draw.text((2*width/3+20,0),"Gradient Thresholded Image",(255,255,255),font=font)
-	
-	draw.text((20,height/2),"Warped image",(255,255,255),font=font)
-	draw.text((width/3+20,height/2),"Lane detected",(255,255,255),font=font)
-	draw.text((2*width/3+20,height/2),"Final Output (w detected lane)",(255,255,255),font=font)
+	font = ImageFont.truetype("arial.ttf", 30)
+	if combined:
+		draw.text((20,0),"Distorted Image",(255,255,255),font=font)
+		draw.text((width/3+20,0),"Undistorted Image",(255,255,255),font=font)
+		draw.text((2*width/3+20,0),"Gradient Thresholded Image",(255,255,255),font=font)
+		
+		draw.text((20,height/2),"Warped image",(255,255,255),font=font)
+		draw.text((width/3+20,height/2),"Lane detected",(255,255,255),font=font)
+		draw.text((2*width/3+20,height/2),"Final Output (w detected lane)",(255,255,255),font=font)
 
+		draw.text((width/2, 100),"curvature: ".join(str(x) for x in curvature),(255,255,255))
+		draw.text((width/2, 200),"offset: ".join(str(offset)),(255,255,255))
 
-	img.save(img_path)
+	else:
+		curve="curvature: "+" m".join(str(x) for x in curvature)+" m"
+		print(str(offset))
+		draw.text((width/2, 100),curve,(255,255,255),font=font)
+		draw.text((width/2, 200),"offset: "+str(offset)+"m",(255,255,255),font=font)
+	img=np.asarray(img) 
+	return img
+	# img.save(img_path)
 
 def window_mask(width, height, img_ref, center,level):
     output = np.zeros_like(img_ref)
@@ -108,12 +118,13 @@ def detect_lanes(warped):
 		left_curverad = ((1 + (2*left_fit_cr[0]*y_eval*ym_per_pix + left_fit_cr[1])**2)**1.5) / np.absolute(2*left_fit_cr[0])
 		right_curverad = ((1 + (2*right_fit_cr[0]*y_eval*ym_per_pix + right_fit_cr[1])**2)**1.5) / np.absolute(2*right_fit_cr[0])
 		# Now our radius of curvature is in meters
-		print(left_curverad, 'm', right_curverad, 'm')
-
+		# print(left_curverad, 'm', right_curverad, 'm')
+		offset=(leftx[-1]+rightx[-1])/2-640
+		offset=offset*xm_per_pix
 		# plt.imshow(warped)
 		# plt.plot(left_fitx, ploty, color='yellow')
 		# plt.plot(right_fitx, ploty, color='yellow')
 		# plt.xlim(0, 1280)
 		# plt.ylim(720, 0)
 		# plt.show()
-		return pts
+		return pts,left_curverad,right_curverad,offset
