@@ -1,18 +1,32 @@
 import cv2
 import numpy as np
 import matplotlib.pyplot as plt
+
+# src = np.float32(
+# [[(img_size[0] / 2) - 60, img_size[1] / 2 + 100],
+# [((img_size[0] / 6) ), img_size[1]],
+# [(img_size[0] * 5 / 6) , img_size[1]],
+# [(img_size[0] / 2 + 60), img_size[1] / 2 + 100]])
+
+# dst = np.float32(
+# [[(img_size[0] / 4), 0],
+# [(img_size[0] / 4), img_size[1]],
+# [(img_size[0] * 3 / 4), img_size[1]],
+# [(img_size[0] * 3 / 4), 0]])
 def warp(img,img_size):
+	img_size=(img.shape[1],img.shape[0])
 	src = np.float32(
-	[[(img_size[0] / 2) - 45, img_size[1] / 2 + 100],
-	[((img_size[0] / 6) - 0), img_size[1]],
-	[(img_size[0] * 5 / 6) + 60, img_size[1]],
-	[(img_size[0] / 2 + 45), img_size[1] / 2 + 100]])
-	
+	[[(img_size[0] / 2) - 50, img_size[1] / 2 + 100],
+	[((img_size[0] / 5) ), img_size[1]],
+	[(img_size[0] * 4 / 5) , img_size[1]],
+	[(img_size[0] / 2 + 50), img_size[1] / 2 + 100]])
+
 	dst = np.float32(
 	[[(img_size[0] / 4), 0],
 	[(img_size[0] / 4), img_size[1]],
 	[(img_size[0] * 3 / 4), img_size[1]],
 	[(img_size[0] * 3 / 4), 0]])
+
 	M=cv2.getPerspectiveTransform(src,dst)
 	warped=cv2.warpPerspective(img,M,img_size,flags=cv2.INTER_LINEAR)
 	# warped=np.expand_dims(warped,axis=2)
@@ -20,24 +34,24 @@ def warp(img,img_size):
 	# plt.imshow(warped)
 	# plt.show()
 	return warped
-def unwarp(img,img_size): #perspective transform
+def unwarp(img,img_size): #perspective transform	
+	img_size=(img.shape[1],img.shape[0])
 	src = np.float32(
-	[[(img_size[0] / 2) - 45, img_size[1] / 2 + 100],
-	[((img_size[0] / 6) - 0), img_size[1]],
-	[(img_size[0] * 5 / 6) + 60, img_size[1]],
-	[(img_size[0] / 2 + 45), img_size[1] / 2 + 100]])
-	
+	[[(img_size[0] / 2) - 50, img_size[1] / 2 + 100],
+	[((img_size[0] / 5) ), img_size[1]],
+	[(img_size[0] * 4 / 5) , img_size[1]],
+	[(img_size[0] / 2 + 50), img_size[1] / 2 + 100]])
+
 	dst = np.float32(
 	[[(img_size[0] / 4), 0],
 	[(img_size[0] / 4), img_size[1]],
 	[(img_size[0] * 3 / 4), img_size[1]],
 	[(img_size[0] * 3 / 4), 0]])
-	
-	img_size=(img.shape[1],img.shape[0])
+
 	M=cv2.getPerspectiveTransform(dst,src)
 	unwarped=cv2.warpPerspective(img,M,img_size,flags=cv2.INTER_LINEAR)
 	return unwarped
-def threshold(img, s_thresh=(160, 255), sx_thresh=(20, 100)):
+def threshold(img, s_thresh=(140, 255), sx_thresh=(20, 100)):
 	img = np.copy(img)
 	# Convert to HSV color space and separate the V channel
 	hsv = cv2.cvtColor(img, cv2.COLOR_RGB2HLS).astype(np.float)

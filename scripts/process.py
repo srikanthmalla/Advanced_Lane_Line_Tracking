@@ -18,11 +18,11 @@ class process:
 		self.combined=False
 	def save_image(self,image_name,output):
 		#save output image
-		output=write_text(output,self.height,self.width,[self.left_curverad,self.right_curverad],self.offset,self.combined)
+		# output=write_text(output,self.height,self.width,self.curverad,self.offset,self.combined)
 		output_path='./output_images/'+image_name
 		scipy.misc.imsave(output_path, output)
 	def process_image(self,image1):
-		output = np.zeros((self.height,self.width,3))
+		output = np.zeros((self.height,self.width,3),dtype=np.uint8)
 
 		#undistorted images
 		undist_img=cc.undistort(image1,self.mtx,self.dist)
@@ -33,7 +33,7 @@ class process:
 		# self.save_image('3_binary.jpg',binary)
 
 		#warping
-		img_size=(binary.shape[1],image1.shape[0])
+		img_size=(binary.shape[1],binary.shape[0])
 		binary_warped=transform.warp(binary,img_size)
 		# self.save_image('4_binary_warped.jpg',binary_warped)
 
@@ -42,7 +42,7 @@ class process:
 		# self.save_image('5_color_warped.jpg',color_warped)
 
 		#Detect Lines
-		points,self.left_curverad,self.right_curverad,self.offset=detect_lanes(binary_warped[:,:,1])
+		points,self.curverad,self.offset=detect_lanes(binary_warped[:,:,1])
 		print(self.offset)
 		lane=draw(color_warped,points)
 		# self.save_image('6_lane.jpg',lane)
@@ -61,12 +61,15 @@ class process:
 			output[int(self.height/2):self.height,2*int(self.width/3):self.width]=scipy.misc.imresize(dst,(int(self.height/2),int(self.width/3)))
 		else:
 			output=scipy.misc.imresize(dst,(int(self.height),int(self.width)))
-		output=write_text(output,self.height,self.width,[self.left_curverad,self.right_curverad],self.offset, self.combined)
+
+		# output=np.array(output,dtype=np.uint8)
+		output=np.uint8(output)
+		output=write_text(output,self.height,self.width,self.curverad,self.offset, self.combined)
 		return output
 
 	def process_video(self,video_name):
 		output_v = 'output_videos/'+video_name
-		clip1 = VideoFileClip(video_name).subclip(0,10)
+		clip1 = VideoFileClip(video_name).subclip(0,30)
 		print('processing video..')
 		clip = clip1.fl_image(self.process_image)
 		clip.write_videofile(output_v, audio=False)
