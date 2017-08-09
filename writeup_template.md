@@ -44,12 +44,6 @@ Undistortion after calibration: (left distorted, right undistorted)
 I used a combination of color and gradient thresholds to generate a binary image in function called `threshold`,which appears in `scripts/transform.py` is used.  Here's an example of my output for this step.  
 ![alt text](output_images/3_binary.jpg)
 
-Initially a number of combinations of color and gradient thresholds were attempted. It was found that none of these were very robust to changing conditions in lighting and contrast. After reviewing some literature on the subject, it was found that using a second derivative operation (Laplacian) might be more suited to this purpose[1]. By using a Laplacian filter (using cv2.Laplacian) on the image followed by thresholding it to highlight only the negative values (denoting a dark-bright-dark edge) it was possible to reject many of the false positives. The Laplacian resulted in better results than using combinations of Sobel gradients.
-
-The thresholding operations used to detect edges in the images can be found in lines 149-170 of project_04.py in the function called find_edges. The thresholded binary mask obtained from the Laplacian is named mask_one in the code. The thresholding is first performed on the S-channel of the image in HLS colorspace. If too few pixels were detected by this method (less than 1% of total number of pixels), then the Laplacian thresholding is attempted on the grayscale image.
-
-The second thresholded mask, mask_two, is created using a simple threshold on the S-channel. And finally, a brightness mask (gray_binary) is used to reject any darker lines in the final result. These masks are combined as: combined_mask = gray_binary AND (mask_one OR mask_two)
-
 #### 3. Describe how (and identify where in your code) you performed a perspective transform and provide an example of a transformed image.
 
 The code for my perspective transform includes a function called `warp()`, which appears in the file `scripts/transform.py` (output_images/examples/example.py) (or, for example, in the 3rd code cell of the IPython notebook).  The `warper()` function takes as inputs an image (`img`), source (`src`) and destination (`dst`) points are automated inside the function as below.  I chose the hardcode the source and destination points in the following manner:
