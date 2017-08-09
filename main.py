@@ -13,6 +13,7 @@ for image_name in onlyfiles:
 	print('--'*10)
 	test_images_dir='./test_images/'	
 	#distorted images
+	
 	image1=mpimg.imread(test_images_dir+image_name)
 	output=p.process_image(image1)
 	# print(output)
