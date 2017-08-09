@@ -114,14 +114,14 @@ I implemented this step in function called `unwarp()` in `scrips/transform.py`. 
 `scripts/process.py` has function called `process_video()` to process the video using the same function used for images
 Here is the video link:
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=C5wa6m0RdQ4
-" target="_blank"><img src="http://img.youtube.com/vi/C5wa6m0RdQ4/maxresdefault.jpg" 
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=K5yrqF3sJpI
+" target="_blank"><img src="http://img.youtube.com/vi/K5yrqF3sJpI/maxresdefault.jpg" 
 alt="Full Video of Lane Tracking" width="720" height=AUTO border="10" /></a>
 
 with all steps combined in one video:
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=qCQktcZ3k5A
-" target="_blank"><img src="http://img.youtube.com/vi/qCQktcZ3k5A/maxresdefault.jpg" 
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=d8ig_THavas
+" target="_blank"><img src="http://img.youtube.com/vi/d8ig_THavas/maxresdefault.jpg" 
 alt="Full Video of Lane Tracking" width="720" height=AUTO border="10" /></a>
 
 ---
@@ -129,4 +129,12 @@ alt="Full Video of Lane Tracking" width="720" height=AUTO border="10" /></a>
 ### Discussion
 
 #### 1. Briefly discuss any problems / issues you faced in your implementation of this project.  Where will your pipeline likely fail?  What could you do to make it more robust?
-Eventhough the we could add polynomial and better thresholding (for binary conversion). The masking is not adaptive like when a car comes comes between, lane size changes, when there is big turning. May be deep Learning (segmentation) approach could be adaptive.
+If warping is bad, this could happen at turns causing the left is lane not found (also caused when the noise making second line to predict and polynomial fit could go bad):
+![alt text](output_images/problem1.png)
+
+I overcame this, by good warping.
+
+When Lighting is different the thresholding range needs to be different, but this might cause extra noise by increasing the thresholding range. For example, to overcome this problem shown in below image which has double line detected on left, to get single peak I adjusted window size while doing convolution and also adjusted the threshold range.
+![alt text](output_images/problem2.png)
+
+May be deep learning approach (data driven) could adapt to these changes instead of hand tuning parameters.
