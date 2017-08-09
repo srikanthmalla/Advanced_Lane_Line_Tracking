@@ -15,7 +15,7 @@ class process:
 		self.height=1000
 		self.width=1500
 		self.mtx,self.dist=cc.calibrate(calib_images_dir)
-		self.combined=False
+		self.combined=True
 	def save_image(self,image_name,output):
 		#save output image
 		# output=write_text(output,self.height,self.width,self.curverad,self.offset,self.combined)
@@ -69,7 +69,7 @@ class process:
 
 	def process_video(self,video_name):
 		output_v = 'output_videos/'+video_name
-		clip1 = VideoFileClip(video_name).subclip(0,30)
+		clip1 = VideoFileClip(video_name)
 		print('processing video..')
 		clip = clip1.fl_image(self.process_image)
 		clip.write_videofile(output_v, audio=False)

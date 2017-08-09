@@ -12,13 +12,12 @@ for image_name in onlyfiles:
 	print(image_name)
 	print('--'*10)
 	test_images_dir='./test_images/'	
-	# image_name='test1.jpg'
-		#distorted images
+	#distorted images
 	image1=mpimg.imread(test_images_dir+image_name)
 	output=p.process_image(image1)
 	# print(output)
 	p.save_image(image_name,output)
 
 #video processing pipeline
-video_name='project_video.mp4'
-p.process_video(video_name)
+# video_name='project_video.mp4'
+# p.process_video(video_name)
