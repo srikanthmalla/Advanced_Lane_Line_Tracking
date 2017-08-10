@@ -71,7 +71,7 @@ I verified that my perspective transform was working as expected by drawing the 
 
 This script is there in function called `detect_lanes` in `scripts/helper_funcs.py` uses function `find_window_centroids` which does sliding window approach with convolution as described in lecture and fit my lane lines with a 2nd order polynomial like this and filled green color between those lines:
 
-![alt text](/output_images/6_lane.jpg)
+![alt text](output_images/6_lane.jpg)
 
 #### 5. Describe how (and identify where in your code) you calculated the radius of curvature of the lane and the position of the vehicle with respect to center.
 
@@ -114,8 +114,8 @@ I implemented this step in function called `unwarp()` in `scrips/transform.py`. 
 `scripts/process.py` has function called `process_video()` to process the video using the same function used for images
 Here is the video link:
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=9tOoQaFnX4E
-" target="_blank"><img src="http://img.youtube.com/vi/9tOoQaFnX4E/maxresdefault.jpg" 
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=o8Q5tUNNMK0
+" target="_blank"><img src="http://img.youtube.com/vi/o8Q5tUNNMK0/maxresdefault.jpg" 
 alt="Full Video of Lane Tracking" width="720" height=AUTO border="10" /></a>
 ---
 
