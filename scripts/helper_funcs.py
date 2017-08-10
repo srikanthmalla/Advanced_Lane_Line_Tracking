@@ -110,8 +110,9 @@ def detect_lanes(warped):
 		ym_per_pix = 30/720 # meters per pixel in y dimension
 		xm_per_pix = 3.7/700 # meteres per pixel in x dimension
 		fit_cr = np.polyfit(ploty*ym_per_pix, left_fitx*xm_per_pix, 2)
-		curverad = ((1 + (2*fit_cr[0]*y_eval + fit_cr[1])**2)**1.5) \
+		curverad = ((1 + (2*fit_cr[0]*y_eval*ym_per_pix + fit_cr[1])**2)**1.5) \
 							 /np.absolute(2*fit_cr[0])
+		print("curvature:",curverad)
 		# Now our radius of curvature is in meters
 		# print(left_curverad, 'm', right_curverad, 'm')
 		image_shape=np.shape(warped)
