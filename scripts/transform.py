@@ -66,7 +66,8 @@ def threshold(image, s_thresh=(150, 255), sx_thresh=(20, 100)):
 #     gray = cv2.cvtColor(blur.astype(np.uint8), cv2.COLOR_RGB2GRAY)
 	gray = (0.5*image[:,:,0] + 0.4*image[:,:,1] + 0.1*image[:,:,2]).astype(np.uint8)
 	s = hls[:,:,2]
-	
+	l = hls[:,:,1]
+
 	_, gray_binary = cv2.threshold(gray.astype('uint8'), 150, 255, cv2.THRESH_BINARY)
 
 	total_px = image.shape[0]*image.shape[1]
@@ -77,10 +78,12 @@ def threshold(image, s_thresh=(150, 255), sx_thresh=(20, 100)):
 		mask_three = (laplacian < 0.075*np.min(laplacian)).astype(np.uint8)
 
 	_, s_binary = cv2.threshold(s.astype('uint8'), 150, 255, cv2.THRESH_BINARY)
+	_, l_binary = cv2.threshold(l.astype('uint8'), 200, 255, cv2.THRESH_BINARY)
 	mask_two = s_binary
 
 	combined_binary = np.clip(cv2.bitwise_and(gray_binary, 
-						cv2.bitwise_or(mask_three, mask_two)), 0, 255).astype('uint8')
+						cv2.bitwise_or(mask_three,cv2.bitwise_or(l_binary, mask_two))), 0, 255).astype('uint8')
+	# combined_binary = np.clip(l_binary, 0, 255).astype('uint8')
 
 	combined_binary=np.expand_dims(combined_binary,axis=2)
 	combined_binary=np.tile(combined_binary,(1,1,3))

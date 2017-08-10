@@ -79,8 +79,8 @@ def draw(img,pts):
 def detect_lanes(warped):
 	print('detecting lane and fitting polynomial..')
 	window_width = 100 
-	window_height = 120 # Break image into 9 vertical layers since image height is 720
-	margin = 100 # How much to slide left and right for searching
+	window_height = 180 # Break image into 9 vertical layers since image height is 720
+	margin = 50 # How much to slide left and right for searching
 	window_centroids = find_window_centroids(warped, window_width, window_height, margin)
 	# If we found any window centers
 	if len(window_centroids) > 0:

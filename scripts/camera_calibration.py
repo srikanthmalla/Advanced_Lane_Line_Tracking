@@ -35,6 +35,8 @@ def calibrate(input_dir):
 		gray=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 		objPoints,imgPoints=chessboardcorners(gray,objPoints,imgPoints,fname)
 	ret, mtx, dist, rvecs, tvecs = cv2.calibrateCamera(objPoints, imgPoints, gray.shape[::-1], None, None)
+	print("matrix:",mtx)
+	print("dst coeff:",dist)
 	return (mtx,dist)
 def undistort(img,mtx,dist):
 	print('undistorting..')

@@ -15,7 +15,7 @@ class process:
 		self.height=1000
 		self.width=1500
 		self.mtx,self.dist=cc.calibrate(calib_images_dir)
-		self.combined=True
+		self.combined=False
 	def save_image(self,image_name,output):
 		#save output image
 		# output=write_text(output,self.height,self.width,self.curverad,self.offset,self.combined)
