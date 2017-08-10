@@ -14,6 +14,6 @@ The goals / steps of this project are the following:
 
 Here is the video of Lane Tracking:
 
-<a href="http://www.youtube.com/watch?feature=player_embedded&v=9tOoQaFnX4E
-" target="_blank"><img src="http://img.youtube.com/vi/9tOoQaFnX4E/maxresdefault.jpg" 
+<a href="http://www.youtube.com/watch?feature=player_embedded&v=o8Q5tUNNMK0
+" target="_blank"><img src="http://img.youtube.com/vi/o8Q5tUNNMK0/maxresdefault.jpg" 
 alt="Full Video of Lane Tracking" width="720" height=AUTO border="10" /></a>
